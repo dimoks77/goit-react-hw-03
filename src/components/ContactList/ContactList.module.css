@@ -1,0 +1,41 @@
+.list {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .listItem {
+    /* margin-bottom: 10px; */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .username {
+    font-weight: bold;
+  }
+  
+  .id {
+    font-weight: 400;
+  }
+  
+  .access {
+    color: gray;
+  }
+
+  .button {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #cc0000;
+  }
+  

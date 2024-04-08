@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import Filter from './components/SearchBox/SearchBox';
+import Users  from './components/ContactList/ContactList';
+import UserForm from "./components/ContactForm/ContactForm";
 
-function App() {
-  const [count, setCount] = useState(0)
+const initialUsers = [
+  {username: 'Jacob', access: 'r', id: 23532453 },
+  {username: 'Mango', access: 'w', id: 13341451 },
+  {username: 'Elena', access: 'r', id: 53533455 },
+  {username: 'Orlando', access: 'r', id: 67535456 },
+  {username: 'Gimli', access: 'r', id: 99536457 },
+]
+
+
+export const App = () => {
+  const [users, setUsers] = useState(initialUsers);
+  const [nameFilter, setNameFilter] = useState('');
+
+  const addUser = newUser => {
+    setUsers(prevUsers => {
+      return [...prevUsers, newUser];
+    });
+  };
+
+  const deleteUser = userId => {
+    setUsers(prvUsers => {
+      return prvUsers.filter(user => user.id !== userId);
+    });
+  };
+
+  const visibleUsers = users.filter(user =>
+    user.username.toLowerCase().includes(nameFilter.toLowerCase())
+    );
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+  <>
+      <h1>PhoneBook</h1>
+      <UserForm onAdd={addUser} />
+      <Filter value={nameFilter} onChange={setNameFilter} />
+      <Users items={visibleUsers} onDelete={deleteUser} />
     </>
-  )
-}
+    );
+};
 
-export default App
+export default App;
