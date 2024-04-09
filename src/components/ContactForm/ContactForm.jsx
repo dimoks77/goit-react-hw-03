@@ -1,30 +1,33 @@
 import { useId } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import css from './ContactForm.module.css'; 
+import css from './ContactForm.module.css';
+import { nanoid } from 'nanoid';
 
 const userScheme = Yup.object().shape({
     name: Yup.string()
-        .min(3, "Name must be at least 3 symb long")
+        .min(3, "Too Short!")
+        .max(50, "Too Long!")
         .required("This is a requarid field"),
-    phone: Yup.string()
-        .min(3, "Name must be at least 3 symb long")
+    number: Yup.string()
+        .min(3, "Too Short!")
+        .max(50, "Too Long!")
         .required('This is a required field'),
 });
 
 export const ContactForm = ({ onAdd }) => {
     const nameFieldId = useId();
-    const phoneFieldId = useId();
+    const numberFieldId = useId();
 
     return ( 
     <Formik 
       initialValues={{
         username: '',
-        phone: '',
+        number: '',
     }}
     validationSchema={userScheme} 
     onSubmit={(values, actions) => {
-        onAdd({ id: Date.now(), ...values});
+        onAdd({ id: nanoid(), ...values});
         actions.reset.form;
     }}
     >
@@ -36,9 +39,9 @@ export const ContactForm = ({ onAdd }) => {
             </div>
 
              <div className={css.formGroup}>
-                <label htmlFor={phoneFieldId}>Number:</label>
-                <Field className={css.field} type="text" name="phone" id={phoneFieldId} />
-                <ErrorMessage name="phone" className={css.error} component="span" />
+                <label htmlFor={numberFieldId}>Number:</label>
+                <Field className={css.field} type="text" name="number" id={numberFieldId} />
+                <ErrorMessage name="number" className={css.error} component="span" />
             </div>
 
             <button className={css.button} type="submit">Add contact</button>
