@@ -1,43 +1,42 @@
 import { useState } from 'react';
-import Filter from './components/SearchBox/SearchBox';
-import Users  from './components/ContactList/ContactList';
-import UserForm from "./components/ContactForm/ContactForm";
+import SearchBox from './components/SearchBox/SearchBox';
+import ContactList  from './components/ContactList/ContactList';
+import ContactForm from "./components/ContactForm/ContactForm";
 
-const initialUsers = [
-  {username: 'Jacob', access: 'r', id: 23532453 },
-  {username: 'Mango', access: 'w', id: 13341451 },
-  {username: 'Elena', access: 'r', id: 53533455 },
-  {username: 'Orlando', access: 'r', id: 67535456 },
-  {username: 'Gimli', access: 'r', id: 99536457 },
+const initialContacts = [
+  {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
+  {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
+  {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
+  {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
 ]
 
 
 export const App = () => {
-  const [users, setUsers] = useState(initialUsers);
+  const [contact, setContact] = useState(initialContacts);
   const [nameFilter, setNameFilter] = useState('');
 
-  const addUser = newUser => {
-    setUsers(prevUsers => {
-      return [...prevUsers, newUser];
+  const addContact = newContact => {
+    setContact(prevContacts => {
+      return [...prevContacts, newContact];
     });
   };
 
-  const deleteUser = userId => {
-    setUsers(prvUsers => {
-      return prvUsers.filter(user => user.id !== userId);
+  const deleteContact = contactId => {
+    setContact(prvContacts => {
+      return prvContacts.filter(contact => contact.id !== contactId);
     });
   };
 
-  const visibleUsers = users.filter(user =>
-    user.username.toLowerCase().includes(nameFilter.toLowerCase())
+  const visibleContacts = contact.filter(contact =>
+    contact.name.toLowerCase().includes(nameFilter.toLowerCase())
     );
 
   return (
   <>
       <h1>PhoneBook</h1>
-      <UserForm onAdd={addUser} />
-      <Filter value={nameFilter} onChange={setNameFilter} />
-      <Users items={visibleUsers} onDelete={deleteUser} />
+      <ContactForm onAdd={addContact} />
+      <SearchBox value={nameFilter} onChange={setNameFilter} />
+      <ContactList items={visibleContacts} onDelete={deleteContact} />
     </>
     );
 };

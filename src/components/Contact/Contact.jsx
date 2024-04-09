@@ -1,13 +1,12 @@
 import css from './Contact.module.css';
 
-const Contact = ({ username, id, access, onDelete }) => {
+const Contact = ({ contact, onDelete }) => {
     return (
-    <>
-      <p className={css.username}>{username}</p>
-      <p className={css.id}>{id}</p>
-      <p className={css.access}>{access}</p>
-      <button className={css.button} onClick={() => onDelete(id)}>Delete</button>
-    </>
+    <div className={css.card}>
+      <p className={css.name}>{contact.name}</p>
+      <p className={css.phone}>{contact.number}</p>
+      <button className={css.button} onClick={() => onDelete(contact.id)}>Delete</button>
+    </div>
     );
   };
   
